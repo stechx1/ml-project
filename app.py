@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import joblib
+import os
 
 # Load the trained pipeline
 pipeline = joblib.load('gradient_boosting_pipeline.pkl')
@@ -36,4 +37,7 @@ def predict():
 
 # Run the Flask app
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Get the port from the environment variable, default to 5000
+    port = int(os.environ.get("PORT", 5000))
+    # Run the app on 0.0.0.0 to make it accessible externally
+    app.run(host="0.0.0.0", port=port)
